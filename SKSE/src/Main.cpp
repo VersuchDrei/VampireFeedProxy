@@ -42,7 +42,7 @@ namespace {
     }
 }
 
-SKSEPluginLoad(const LoadInterface* skse) {
+SKSE_PLUGIN_LOAD(const LoadInterface* skse) {
     InitializeLogging();
 
     auto* plugin = PluginDeclaration::GetSingleton();
@@ -50,7 +50,7 @@ SKSEPluginLoad(const LoadInterface* skse) {
     log::info("{} {} is loading...", plugin->GetName(), version);
 
 
-    Init(skse);
+    Init(skse, InitInfo{});
     InitializePapyrus();
 
     log::info("{} has finished loading.", plugin->GetName());

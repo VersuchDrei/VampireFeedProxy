@@ -13,7 +13,7 @@ ScriptName VampireFeedProxyInner
 */;
 bool Function CanFeedOn(Actor akFeeder, Actor akTarget) Global
 	; target not a vampire
-	Return akTarget.GetSleepState() == 3 || !akTarget.HasKeyword(Game.GetFormFromFile(0x000a82bb, "Skyrim.esm") As Keyword)
+	Return !akTarget.HasKeyword(Game.GetFormFromFile(0x000a82bb, "Skyrim.esm") As Keyword)
 EndFunction
 
 ;/* VampireFeed
@@ -23,11 +23,11 @@ EndFunction
 * * @param abIsLethal, if True the target dies to this action
 */;
 Function VampireFeed(Actor akTarget, bool abIsLethal) Global
-	int type = 1
-	If abIsLethal
-		type = 4
+	(Game.GetFormFromFile(0x000eafd5, "Skyrim.esm") As PlayerVampireQuestScript).VampireFeed()
+
+	If akTarget && abIsLethal
+		akTarget.Kill(Game.GetPlayer())
 	EndIf
-	(Game.GetFormFromFile(0x000eafd5, "Skyrim.esm") As PlayerVampireQuestScript).VampireFeed(akTarget, type)
 EndFunction
 
 ;/* NpcVampireFeed
