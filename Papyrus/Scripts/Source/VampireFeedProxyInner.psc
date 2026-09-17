@@ -23,7 +23,11 @@ EndFunction
 * * @param abIsLethal, if True the target dies to this action
 */;
 Function VampireFeed(Actor akTarget, bool abIsLethal) Global
-	(Game.GetFormFromFile(0x00176970, "Sacrilege - Minimalistic Vampires of Skyrim.esp") As SQL_FeedManager_Script).ProcessFeed(akTarget, abIsLethal, akTarget && akTarget.GetSleepState() == 3, False, False)
+	(Game.GetFormFromFile(0x000eafd5, "Skyrim.esm") As PlayerVampireQuestScript).VampireFeed()
+
+	If akTarget && abIsLethal
+		akTarget.Kill(Game.GetPlayer())
+	EndIf
 EndFunction
 
 ;/* NpcVampireFeed
